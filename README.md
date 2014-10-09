@@ -1,2 +1,2 @@
 Build:
-        cc -framework AppKit -x objective-c main.m -o OpenGL.app/Contents/MacOS/opengl
+        cc -framework AppKit -x objective-c main.m -o OpenGL.app/Contents/MacOS/opengl && open OpenGL.app
