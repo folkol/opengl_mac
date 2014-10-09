@@ -1,4 +1,5 @@
 #include <AppKit/NSApplication.h>
+#include <AppKit/NSScreen.h>
 #include <AppKit/NSWindow.h>
 #include <AppKit/NSMenu.h>
 
@@ -20,11 +21,14 @@ void create_window() {
     [menubar addItem:appMenuItem];
     [NSApp setMainMenu:menubar];
 
-    NSRect frame = NSMakeRect(100, 100, 500, 500);
+    NSRect frame = [[NSScreen mainScreen] frame];
     NSWindow* window  = [[[NSWindow alloc] initWithContentRect:frame
                                            styleMask:NSBorderlessWindowMask
                                            backing:NSBackingStoreBuffered
-                                           defer:NO] autorelease];
+                                           defer:YES] autorelease];
+    [window setLevel:NSMainMenuWindowLevel+1];
+    [window setOpaque:YES];
+    [window setHidesOnDeactivate:YES];
     [window makeKeyAndOrderFront:NSApp];
 
     [NSApp activateIgnoringOtherApps:YES];
