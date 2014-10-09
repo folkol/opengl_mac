@@ -9,8 +9,6 @@ void create_window() {
 
     id menubar = [[NSMenu new] autorelease];
     id appMenuItem = [[NSMenuItem new] autorelease];
-    [menubar addItem:appMenuItem];
-    [NSApp setMainMenu:menubar];
     id appMenu = [[NSMenu new] autorelease];
     id appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     id quitTitle = [@"Quit " stringByAppendingString:appName];
@@ -19,13 +17,14 @@ void create_window() {
                                            keyEquivalent:@"q"] autorelease];
     [appMenu addItem:quitMenuItem];
     [appMenuItem setSubmenu:appMenu];
+    [menubar addItem:appMenuItem];
+    [NSApp setMainMenu:menubar];
 
     NSRect frame = NSMakeRect(100, 100, 500, 500);
     NSWindow* window  = [[[NSWindow alloc] initWithContentRect:frame
                                            styleMask:NSBorderlessWindowMask
                                            backing:NSBackingStoreBuffered
                                            defer:NO] autorelease];
-
     [window makeKeyAndOrderFront:NSApp];
 
     [NSApp activateIgnoringOtherApps:YES];
