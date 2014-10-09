@@ -1,6 +1,5 @@
 #include <AppKit/NSApplication.h>
 #include <AppKit/NSWindow.h>
-#include <AppKit/NSColor.h>
 #include <AppKit/NSMenu.h>
 
 // cc -framework AppKit -x objective-c main.m
