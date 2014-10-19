@@ -2,6 +2,10 @@
 #include <AppKit/NSScreen.h>
 #include <AppKit/NSWindow.h>
 #include <AppKit/NSMenu.h>
+#include <AppKit/NSOpenGL.h>
+#include <AppKit/NSOpenGLView.h>
+
+#include <OpenGL/gl.h>
 
 void create_window() {
   @autoreleasepool {
@@ -29,6 +33,18 @@ void create_window() {
     [window setLevel:NSMainMenuWindowLevel+1];
     [window setOpaque:YES];
     [window setHidesOnDeactivate:YES];
+
+    NSOpenGLPixelFormatAttribute attrs[] =
+    {
+      NSOpenGLPFADoubleBuffer,
+      0
+    };
+    NSOpenGLPixelFormat* pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
+    
+    NSRect viewRect = NSMakeRect(0.0, 0.0, frame.size.width, frame.size.height);
+    NSOpenGLView *fullScreenView = [[NSOpenGLView alloc] initWithFrame:viewRect pixelFormat: pixelFormat];
+    [window setContentView: fullScreenView];
+    
     [window makeKeyAndOrderFront:NSApp];
 
     [NSApp activateIgnoringOtherApps:YES];
