@@ -55,4 +55,6 @@ void create_window() {
 int main ()
 {
   create_window();
+  glClearColor(1, 0, 1, 1);
+  glClear(GL_COLOR_BUFFER_BIT);
 }
