@@ -7,6 +7,8 @@
 
 #include <OpenGL/gl.h>
 
+NSOpenGLContext* openGLContext;
+
 void create_window() {
   @autoreleasepool {
     [NSApplication sharedApplication];
@@ -42,10 +44,12 @@ void create_window() {
     NSOpenGLPixelFormat* pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attrs];
     
     NSRect viewRect = NSMakeRect(0.0, 0.0, frame.size.width, frame.size.height);
-    NSOpenGLView *fullScreenView = [[NSOpenGLView alloc] initWithFrame:viewRect pixelFormat: pixelFormat];
+    NSOpenGLView *fullScreenView = [[NSOpenGLView alloc] initWithFrame:viewRect pixelFormat:pixelFormat];
     [window setContentView: fullScreenView];
-    
     [window makeKeyAndOrderFront:NSApp];
+
+    openGLContext = [[NSOpenGLContext alloc] initWithFormat:pixelFormat shareContext:nil];
+    [openGLContext setView:fullScreenView];
 
     [NSApp activateIgnoringOtherApps:YES];
     [NSApp run];
@@ -55,6 +59,13 @@ void create_window() {
 int main ()
 {
   create_window();
+
+  while(true) {
+  [openGLContext makeCurrentContext];
+
   glClearColor(1, 0, 1, 1);
   glClear(GL_COLOR_BUFFER_BIT);
+
+  [openGLContext flushBuffer];
+  }
 }
